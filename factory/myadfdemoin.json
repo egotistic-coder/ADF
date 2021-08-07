@@ -1,0 +1,9 @@
+{
+	"name": "myadfdemoin",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "235e6405-1f05-44b2-8cbc-e248387774ee",
+		"tenantId": "f12df631-b44e-408d-b6a2-7f7190f316df"
+	}
+}

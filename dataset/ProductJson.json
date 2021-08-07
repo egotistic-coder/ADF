@@ -1,0 +1,34 @@
+{
+	"name": "ProductJson",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage_Input_Product",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "products.json",
+				"container": "adftriggerdemo"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"Products": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"ProductId": {
+								"type": "integer"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

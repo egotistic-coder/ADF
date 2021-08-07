@@ -1,0 +1,13 @@
+{
+	"name": "AzureFunction_Input",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureFunction",
+		"typeProperties": {
+			"functionAppUrl": "https://adffuncappdemo.azurewebsites.net",
+			"authentication": "Anonymous",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIk1ZQURGREVNT0lOXzYwOTk5M2ZmLWZlY2YtNDRjNS04Nzg5LTY0MGIwMDFjYWUyNSINCn0="
+		}
+	}
+}
