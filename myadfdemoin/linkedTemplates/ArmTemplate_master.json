@@ -15,6 +15,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'functionKey' of 'AzureFunction_Input'"
 		},
+		"AzureSqlDatabase_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase'"
+		},
+		"StaginglinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'StaginglinkedService'"
+		},
 		"AzureFunction_Input_properties_typeProperties_functionAppUrl": {
 			"type": "string",
 			"defaultValue": "https://adffuncappdemo.azurewebsites.net"
@@ -51,6 +59,12 @@
 					},
 					"AzureFunction_Input_functionKey": {
 						"value": "[parameters('AzureFunction_Input_functionKey')]"
+					},
+					"AzureSqlDatabase_connectionString": {
+						"value": "[parameters('AzureSqlDatabase_connectionString')]"
+					},
+					"StaginglinkedService_connectionString": {
+						"value": "[parameters('StaginglinkedService_connectionString')]"
 					},
 					"AzureFunction_Input_properties_typeProperties_functionAppUrl": {
 						"value": "[parameters('AzureFunction_Input_properties_typeProperties_functionAppUrl')]"

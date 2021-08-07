@@ -11,6 +11,12 @@
 		"AzureFunction_Input_functionKey": {
 			"value": ""
 		},
+		"AzureSqlDatabase_connectionString": {
+			"value": ""
+		},
+		"StaginglinkedService_connectionString": {
+			"value": ""
+		},
 		"AzureFunction_Input_properties_typeProperties_functionAppUrl": {
 			"value": "https://adffuncappdemo.azurewebsites.net"
 		}
