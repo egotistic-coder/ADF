@@ -58,7 +58,7 @@
 				"type": "AzureFunctionActivity",
 				"dependsOn": [
 					{
-						"activity": "Clear Special Chars",
+						"activity": "Set JSON",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -76,7 +76,7 @@
 					"functionName": "FunctionAPI",
 					"method": "POST",
 					"body": {
-						"value": "@variables('AzCleanJsonParam')",
+						"value": "@variables('AzJsonParams')",
 						"type": "Expression"
 					}
 				},
@@ -100,27 +100,7 @@
 				"typeProperties": {
 					"variableName": "AzJsonParams",
 					"value": {
-						"value": "@concat('{\"Products\":[',join(variables('AzInputParams'), ','),'\"]}\"')",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "Clear Special Chars",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Set JSON",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "AzCleanJsonParam",
-					"value": {
-						"value": "@variables('AzJsonParams')",
+						"value": "@concat('\n{\"Products\":[',\njoin(variables('AzInputParams'),\n ','),']}')",
 						"type": "Expression"
 					}
 				}
@@ -131,9 +111,6 @@
 				"type": "Array"
 			},
 			"AzJsonParams": {
-				"type": "String"
-			},
-			"AzCleanJsonParam": {
 				"type": "String"
 			}
 		},
