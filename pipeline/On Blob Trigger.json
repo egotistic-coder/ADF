@@ -58,7 +58,7 @@
 				"type": "AzureFunctionActivity",
 				"dependsOn": [
 					{
-						"activity": "Set JSON",
+						"activity": "Clear Special Chars",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -76,7 +76,7 @@
 					"functionName": "FunctionAPI",
 					"method": "POST",
 					"body": {
-						"value": "@variables('AzJsonParams')",
+						"value": "@variables('AzCleanJsonParam')",
 						"type": "Expression"
 					}
 				},
@@ -90,7 +90,7 @@
 				"type": "SetVariable",
 				"dependsOn": [
 					{
-						"activity": "ProducstForEach",
+						"activity": "Set Input Params",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -100,17 +100,17 @@
 				"typeProperties": {
 					"variableName": "AzJsonParams",
 					"value": {
-						"value": "@concat('{\"Products\":[',join(variables('AzInputParamsStringArray'), ','),'\"]}\"')\n\n",
+						"value": "@concat('{\"Products\":[',join(variables('AzInputParams'), ','),'\"]}\"')",
 						"type": "Expression"
 					}
 				}
 			},
 			{
-				"name": "ProducstForEach",
-				"type": "ForEach",
+				"name": "Clear Special Chars",
+				"type": "SetVariable",
 				"dependsOn": [
 					{
-						"activity": "Set Input Params",
+						"activity": "Set JSON",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -118,26 +118,11 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"items": {
-						"value": "@variables('AzInputParams')",
+					"variableName": "AzCleanJsonParam",
+					"value": {
+						"value": "@variables('AzJsonParams')",
 						"type": "Expression"
-					},
-					"isSequential": false,
-					"activities": [
-						{
-							"name": "Append Array Numerics as String",
-							"type": "AppendVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "AzInputParamsStringArray",
-								"value": {
-									"value": "Concat('{\"ProductId\":\"','@item().ProductId','\"}')",
-									"type": "Expression"
-								}
-							}
-						}
-					]
+					}
 				}
 			}
 		],
@@ -148,8 +133,8 @@
 			"AzJsonParams": {
 				"type": "String"
 			},
-			"AzInputParamsStringArray": {
-				"type": "Array"
+			"AzCleanJsonParam": {
+				"type": "String"
 			}
 		},
 		"annotations": []
