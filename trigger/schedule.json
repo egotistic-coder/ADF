@@ -1,0 +1,30 @@
+{
+	"name": "schedule",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PipeLine WF",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Week",
+				"interval": 1,
+				"startTime": "2021-08-07T20:26:00Z",
+				"endTime": "2021-08-20T20:26:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"weekDays": [
+						"Sunday"
+					]
+				}
+			}
+		}
+	}
+}
