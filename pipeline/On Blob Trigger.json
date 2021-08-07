@@ -32,8 +32,126 @@
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "Set Input Params",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Product LookUp",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "AzInputParams",
+					"value": {
+						"value": "@activity('Product LookUp').output.value[0].Products",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Invoke Azure Function for Business Logic",
+				"type": "AzureFunctionActivity",
+				"dependsOn": [
+					{
+						"activity": "Set JSON",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"functionName": "FunctionAPI",
+					"method": "POST",
+					"body": {
+						"value": "@variables('AzJsonParams')",
+						"type": "Expression"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureFunction_Input",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Set JSON",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "ProducstForEach",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "AzJsonParams",
+					"value": {
+						"value": "@concat('{\"Products\":[',join(variables('AzInputParamsStringArray'), ','),'\"]}\"')\n\n",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "ProducstForEach",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Set Input Params",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('AzInputParams')",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "Append Array Numerics as String",
+							"type": "AppendVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "AzInputParamsStringArray",
+								"value": {
+									"value": "Concat('{\"ProductId\":\"','@item().ProductId','\"}')",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
+		"variables": {
+			"AzInputParams": {
+				"type": "Array"
+			},
+			"AzJsonParams": {
+				"type": "String"
+			},
+			"AzInputParamsStringArray": {
+				"type": "Array"
+			}
+		},
 		"annotations": []
 	}
 }
